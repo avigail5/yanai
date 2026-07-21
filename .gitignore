@@ -1,0 +1,28 @@
+# Dependencies & Builds
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+
+# Prisma & Databases
+*.sqlite
+*.sqlite-journal
+
+# Environment Variables
+.env
+.env.*
+*.env
+
+# IDEs & OS
+.DS_Store
+Thumbs.db
+.vscode/
+!.vscode/settings.json
+
+# AI Assistants & Agents
+.agents/
+**/.agents/
+.cursor/
+.cline/
