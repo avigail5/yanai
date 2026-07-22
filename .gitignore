@@ -9,6 +9,9 @@ build/
 # Prisma & Databases
 *.sqlite
 *.sqlite-journal
+/backend/generated/
+**/generated/
+/backend/prisma/generated/
 
 # Environment Variables
 .env
