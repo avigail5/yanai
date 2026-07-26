@@ -1,10 +1,10 @@
 import Map from './components/Map';
-import { mapAppStyle } from './styles';
+import { mapAppStyle } from './styles.css';
 
 function App() {
 
   return (
-  <div style={mapAppStyle}>
+  <div className={mapAppStyle}>
       <Map />
     </div>
   )
