@@ -1,17 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { satelliteStyle, mapContainerStyle } from '../styles';
+import { satelliteStyle, mapContainerStyle } from '../styles.css';
 
 export default function Map() {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+  const map = useRef<maplibregl.Map | null>(null);
+
   const CENTER_ISRAEL_Y = 34.7818
   const CENTER_ISRAEL_X = 32.0853
 
   
   useEffect(() => {
-    if (map.current) return;
+    if (map.current || !mapContainer.current) return;
 
     map.current = new maplibregl.Map({
       container: mapContainer.current,
@@ -20,8 +21,8 @@ export default function Map() {
       zoom: 12
     });
 
-map.current.on('load', () => {
-    map.current.resize();
+  map.current.on('load', () => {
+    map.current?.resize();
   });
   
     return () => {
@@ -32,10 +33,5 @@ map.current.on('load', () => {
     };
   }, []);
 
-  return (
-    <div
-      ref={mapContainer}
-      style={mapContainerStyle}
-    />
-  );
+ return <div ref={mapContainer} className={mapContainerStyle} />;
 }
