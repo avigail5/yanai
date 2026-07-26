@@ -16,7 +16,7 @@ export default function Map() {
 
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: satelliteStyle as maplibregl.StyleSpecification,
+      style: satelliteStyle,
       center: [CENTER_ISRAEL_Y, CENTER_ISRAEL_X],
       zoom: 12
     });

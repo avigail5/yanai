@@ -1,7 +1,8 @@
 // styles.css.ts
 import { style } from '@vanilla-extract/css';
+import type { StyleSpecification } from 'maplibre-gl';
 
-export const satelliteStyle = {
+export const satelliteStyle: StyleSpecification = {
   version: 8,
   sources: {
     'esri-satellite': {
@@ -23,7 +24,7 @@ export const satelliteStyle = {
       maxzoom: 19
     }
   ]
-} as const;
+};
 
 export const mapContainerStyle = style({
   position: 'absolute',
