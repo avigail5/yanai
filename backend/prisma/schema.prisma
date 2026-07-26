@@ -24,6 +24,7 @@ model Task {
   title       String
   description String?
   status      TaskStatus @default(open)
+  location    Unsupported("geometry(Point, 4326)")?
 
   @@map("tasks")
 }
