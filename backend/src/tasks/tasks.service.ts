@@ -22,13 +22,13 @@ export class TasksService {
     const [longitude, latitude] = location.coordinates;
 
     const [newTask] = await this.prisma.$queryRaw<RawTaskResult[]>`
-      INSERT INTO "tasks" ("title", "description", "location")
+      INSERT INTO "hafifa"."tasks" ("title", "description", "location")
       VALUES (
         ${title}, 
         ${description ?? null}, 
-        ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)
+        hafifa.ST_SetSRID(hafifa.ST_MakePoint(${longitude}, ${latitude}), 4326)
       )
-      RETURNING id, title, description, status, ST_AsGeoJSON(location)::json AS location;
+      RETURNING id, title, description, status, hafifa.ST_AsGeoJSON(location)::json AS location;
     `;
 
     return newTask;
@@ -41,8 +41,8 @@ export class TasksService {
         title, 
         description, 
         status, 
-        ST_AsGeoJSON(location)::json AS location
-      FROM "tasks"
+        hafifa.ST_AsGeoJSON(location)::json AS location
+      FROM "hafifa"."tasks"
       WHERE location IS NOT NULL;
     `;
 

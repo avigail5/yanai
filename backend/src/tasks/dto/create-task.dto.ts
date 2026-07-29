@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
+import { ArrayMaxSize, ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
 
 
 class GeoJsonPointDto {
@@ -11,7 +11,7 @@ type! : 'Point';
 @IsNotEmpty()
 @IsNumber({}, { each: true})
 @ArrayMinSize(2)
-@ArrayMinSize(3)
+@ArrayMaxSize(2)
 coordinates!: number[];
 }
 
