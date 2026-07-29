@@ -1,3 +1,3 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 -- AlterTable
-ALTER TABLE "tasks" ADD COLUMN "location" geometry(Point, 4326);
+ALTER TABLE "hafifa"."tasks" ADD COLUMN "location" public.geometry(Point, 4326);

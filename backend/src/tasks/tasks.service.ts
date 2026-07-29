@@ -26,9 +26,9 @@ export class TasksService {
       VALUES (
         ${title}, 
         ${description ?? null}, 
-        hafifa.ST_SetSRID(hafifa.ST_MakePoint(${longitude}, ${latitude}), 4326)
+        ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)
       )
-      RETURNING id, title, description, status, hafifa.ST_AsGeoJSON(location)::json AS location;
+      RETURNING id, title, description, status, ST_AsGeoJSON(location)::json AS location;
     `;
 
     return newTask;
@@ -41,7 +41,7 @@ export class TasksService {
         title, 
         description, 
         status, 
-        hafifa.ST_AsGeoJSON(location)::json AS location
+        ST_AsGeoJSON(location)::json AS location
       FROM "hafifa"."tasks"
       WHERE location IS NOT NULL;
     `;
