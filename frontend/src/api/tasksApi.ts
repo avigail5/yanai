@@ -1,32 +1,7 @@
-export interface TaskFeature {
-  type: 'Feature';
-  geometry: {
-    type: 'Point';
-    coordinates: [number, number];
-  };
-  properties: {
-    id: number;
-    title: string;
-    description: string | null;
-    status: string;
-  };
-}
-
-export interface TasksGeoJsonResponse {
-  type: 'FeatureCollection';
-  features: TaskFeature[];
-}
-
-export interface CreateTaskPayload {
-  title: string;
-  description?: string;
-  location: {
-    type: 'Point';
-    coordinates: [number, number];
-  };
-}
-
-const BASE_URL = 'http://localhost:3000';
+import { BASE_URL } from "../env";
+import type { CreateTaskPayload } from "./types/CreateTaskPayload";
+import type { TaskFeature } from "./types/TaskFeature";
+import type { TasksGeoJsonResponse } from "./types/TasksGeoJsonResponse";
 
 export const fetchTasksGeoJson = async (): Promise<TasksGeoJsonResponse> => {
   const response = await fetch(`${BASE_URL}/tasks`);
