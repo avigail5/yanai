@@ -1,4 +1,3 @@
-// styles.css.ts
 import { style } from '@vanilla-extract/css';
 import type { StyleSpecification } from 'maplibre-gl';
 
