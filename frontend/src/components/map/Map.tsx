@@ -5,6 +5,7 @@ import { useTasks } from '../../hooks/useTasks';
 import { satelliteStyle, mapContainerStyle } from '../../styles.css';
 import type { SelectedTaskInfo } from './types/SelectedTaskInfo';
 import { layerStyle } from './layers/taskLayer';
+import { TaskPopup } from '../taskPopup';
 
 const CENTER_ISRAEL_LNG = 34.7818;
 const CENTER_ISRAEL_LAT = 32.0853;
@@ -53,26 +54,10 @@ export default function TasksMap() {
         )}
 
         {selectedTask && (
-          <Popup
-            longitude={selectedTask.longitude}
-            latitude={selectedTask.latitude}
-            anchor="bottom"
+         <TaskPopup
+            task={selectedTask}
             onClose={() => setSelectedTask(null)}
-            closeOnClick={false}
-          >
-            <div className="task-popup-container" style={{ padding: '8px', color: '#1f2937' }}>
-              <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', fontWeight: 'bold' }}>
-                {selectedTask.title ?? 'Untitled Task'}
-              </h4>
-              <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#4b5563' }}>
-                {selectedTask.description ?? 'No description'}
-              </p>
-              <div style={{ fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <strong>Status:</strong> 
-                <span style={{ textTransform: 'capitalize' }}>{selectedTask.status ?? 'N/A'}</span>
-              </div>
-            </div>
-          </Popup>
+          />
         )}
       </Map>
     </div>
