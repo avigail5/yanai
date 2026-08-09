@@ -1,4 +1,4 @@
-import Map from './components/Map';
+import Map from './components/map/Map';
 import { mapAppStyle } from './styles.css';
 
 function App() {

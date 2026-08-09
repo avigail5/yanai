@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Map, { Source, Layer, Popup, type LayerProps } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { useTasks } from '../hooks/useTasks';
-import { satelliteStyle, mapContainerStyle } from '../styles.css';
+import { useTasks } from '../../hooks/useTasks';
+import { satelliteStyle, mapContainerStyle } from '../../styles.css';
 import type { SelectedTaskInfo } from './types/SelectedTaskInfo';
+import { layerStyle } from './layers/taskLayer';
 
 const CENTER_ISRAEL_LNG = 34.7818;
 const CENTER_ISRAEL_LAT = 32.0853;
@@ -12,24 +13,6 @@ export default function TasksMap() {
   const { data: tasksGeoJson, isLoading, isError } = useTasks();
 
   const [selectedTask, setSelectedTask] = useState<SelectedTaskInfo | null>(null);
-
-  const layerStyle: LayerProps = {
-    id: 'tasks-circles',
-    type: 'circle' as const,
-    paint: {
-      'circle-radius': 8,
-      'circle-stroke-width': 2,
-      'circle-stroke-color': '#ffffff',
-      'circle-color': [
-        'match',
-        ['get', 'status'],
-        'open', '#ef4444',
-        'in_process', '#f59e0b',
-        'closed', '#10b981',
-        '#3b82f6',
-      ],
-    },
-  };
 
   const handleMapClick = (e: any) => {
     const feature = e.features && e.features[0];
