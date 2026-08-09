@@ -14,7 +14,9 @@
     "@vanilla-extract/css": "^1.21.1",
     "maplibre-gl": "^5.24.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "react-map-gl": "^8.1.2",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
