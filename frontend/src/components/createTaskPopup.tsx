@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 import { useCreateTask } from '../hooks/useTasks';
 import { CREATE_TASK_POPUP_TEXTS } from './map/strings';
+import { createTaskButton, createTaskButtonContainer, createTaskForm, createTaskInput, createTaskTitle } from './map/map.styles.css';
 
 interface CreateTaskPopupProps {
   location: { lng: number; lat: number };
@@ -44,12 +45,12 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
       onClose={onClose}
       closeOnClick={false}
     >
-      <form onSubmit={handleSubmit} style={{ padding: '8px', minWidth: '200px' }}>
-        <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 'bold' }}>
+      <form onSubmit={handleSubmit} className={createTaskForm}>
+        <h4 className={createTaskTitle}>
             {CREATE_TASK_POPUP_TEXTS.CREATE_TASK}
         </h4>
 
-        <div style={{ marginBottom: '8px' }}>
+        <div className={createTaskInput}>
           <input
             type="text"
             placeholder={CREATE_TASK_POPUP_TEXTS.TITLE}
@@ -66,7 +67,7 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
           />
         </div>
 
-        <div style={{ marginBottom: '8px' }}>
+        <div className={createTaskInput}>
           <textarea
             placeholder={CREATE_TASK_POPUP_TEXTS.DESCRIPTION}
             value={description}
@@ -83,17 +84,11 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
+        <div className={createTaskButtonContainer}>
           <button
             type="button"
             onClick={onClose}
-            style={{
-              padding: '4px 8px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-              background: '#fff',
-              cursor: 'pointer',
-            }}
+            className={createTaskButton}
           >
             {CREATE_TASK_POPUP_TEXTS.CANCEL}
           </button>
@@ -101,14 +96,15 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
           <button
             type="submit"
             disabled={isPending}
-            style={{
-              padding: '4px 8px',
-              borderRadius: '4px',
-              border: 'none',
-              background: '#2563eb',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
+            className={createTaskButton}
+          >
+            {CREATE_TASK_POPUP_TEXTS.CANCEL}
+          </button>
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className={createTaskButton}
           >
             {isPending ? CREATE_TASK_POPUP_TEXTS.SAVING : CREATE_TASK_POPUP_TEXTS.CREATE}
           </button>

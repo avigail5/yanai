@@ -54,3 +54,23 @@ export const addButtonVariants = styleVariants({
     },
   ],
 });
+
+export const createTaskForm = style({
+     padding: '8px', minWidth: '200px'
+     });
+
+export const createTaskTitle = style({
+     margin: '0 0 8px 0', fontSize: '14px', fontWeight: 'bold'
+     });
+
+export const createTaskInput = style({
+     marginBottom: '8px'
+     });
+
+export const createTaskButtonContainer = style({
+     display: 'flex', gap: '6px', justifyContent: 'flex-end'
+     });
+
+export const createTaskButton = style({
+     padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc', background: '#fff', cursor: 'pointer'
+     });
