@@ -8,6 +8,7 @@ import { layerStyle } from './layers/taskLayer';
 import { TaskPopup } from '../taskPopup';
 import { CreateTaskPopup } from '../createTaskPopup';
 import { addButtonVariants, mapWrapper, newTaskButtonContainer } from './map.styles.css';
+import { NEW_TASK_BUTTON_TEXTS } from './strings';
 
 const CENTER_ISRAEL_LNG = 34.7818;
 const CENTER_ISRAEL_LAT = 32.0853;
@@ -64,7 +65,7 @@ export default function TasksMap() {
               : addButtonVariants.add
           }
         >
-          {isAddingTask ? 'ביטול הוספה' : '➕ הוסף משימה על המפה'}
+          {isAddingTask ? NEW_TASK_BUTTON_TEXTS.CANCEL : NEW_TASK_BUTTON_TEXTS.ADD}
         </button>
       </div>
       <Map

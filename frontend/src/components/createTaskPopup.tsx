@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Popup } from 'react-map-gl/maplibre';
 import { useCreateTask } from '../hooks/useTasks';
+import { CREATE_TASK_POPUP_TEXTS } from './map/strings';
 
 interface CreateTaskPopupProps {
   location: { lng: number; lat: number };
@@ -45,13 +46,13 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
     >
       <form onSubmit={handleSubmit} style={{ padding: '8px', minWidth: '200px' }}>
         <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', fontWeight: 'bold' }}>
-          יצירת משימה חדשה
+            {CREATE_TASK_POPUP_TEXTS.CREATE_TASK}
         </h4>
 
         <div style={{ marginBottom: '8px' }}>
           <input
             type="text"
-            placeholder="כותרת המשימה"
+            placeholder={CREATE_TASK_POPUP_TEXTS.TITLE}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -67,7 +68,7 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
 
         <div style={{ marginBottom: '8px' }}>
           <textarea
-            placeholder="תיאור (אופציונלי)"
+            placeholder={CREATE_TASK_POPUP_TEXTS.DESCRIPTION}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
@@ -94,7 +95,7 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
               cursor: 'pointer',
             }}
           >
-            ביטול
+            {CREATE_TASK_POPUP_TEXTS.CANCEL}
           </button>
 
           <button
@@ -109,7 +110,7 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
               cursor: 'pointer',
             }}
           >
-            {isPending ? 'שומר...' : 'צור משימה'}
+            {isPending ? CREATE_TASK_POPUP_TEXTS.SAVING : CREATE_TASK_POPUP_TEXTS.CREATE}
           </button>
         </div>
       </form>
