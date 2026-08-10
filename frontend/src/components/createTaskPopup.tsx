@@ -98,14 +98,6 @@ export const CreateTaskPopup: React.FC<CreateTaskPopupProps> = ({ location, onCl
             disabled={isPending}
             className={createTaskButton}
           >
-            {CREATE_TASK_POPUP_TEXTS.CANCEL}
-          </button>
-
-          <button
-            type="submit"
-            disabled={isPending}
-            className={createTaskButton}
-          >
             {isPending ? CREATE_TASK_POPUP_TEXTS.SAVING : CREATE_TASK_POPUP_TEXTS.CREATE}
           </button>
         </div>
