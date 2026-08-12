@@ -19,7 +19,7 @@ export default function TasksMap() {
   const { data: tasksGeoJson, isLoading, isError } = useTasks();
 
   const selectedTaskId = useTaskStore((state) => state.selectedTaskId);
-  const flyToLocation = useTaskStore((state) => state.flyToLocation);
+  const flyToLocationCoordinate = useTaskStore((state) => state.flyToLocationCoordinate);
   const setSelectedTaskId = useTaskStore((state) => state.setSelectedTaskId);
   const clearSelection = useTaskStore((state) => state.clearSelection);
 
@@ -27,14 +27,14 @@ export default function TasksMap() {
   const [isAddingTask, setIsAddingTask] = useState(false);
 
   useEffect(() => {
-    if (flyToLocation && mapRef.current) {
+    if (flyToLocationCoordinate && mapRef.current) {
       mapRef.current.flyTo({
-        center: flyToLocation,
+        center: flyToLocationCoordinate,
         zoom: 15,
         duration: 1500,
       });
     }
-  }, [flyToLocation]);
+  }, [flyToLocationCoordinate]);
 
   const selectedTaskFeature = tasksGeoJson?.features?.find(
     (feature: any) => feature.properties.id === selectedTaskId

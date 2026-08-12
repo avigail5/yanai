@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 interface TaskStore {
   selectedTaskId:  number | null;
-  flyToLocation: [number, number] | null;
+  flyToLocationCoordinate: [number, number] | null;
 
   setSelectedTaskId: (id: number | null) => void;
   selectTaskAndFlyTo: (id: number, coordinates: [number, number]) => void;
@@ -11,7 +11,7 @@ interface TaskStore {
 
 export const useTaskStore = create<TaskStore>((set) => ({
   selectedTaskId: null,
-  flyToLocation: null,
+  flyToLocationCoordinate: null,
 
   setSelectedTaskId: (id) =>
     set({ selectedTaskId: id }),
@@ -19,9 +19,9 @@ export const useTaskStore = create<TaskStore>((set) => ({
   selectTaskAndFlyTo: (id, coordinates) =>
     set({
       selectedTaskId: id,
-      flyToLocation: coordinates,
+      flyToLocationCoordinate: coordinates,
     }),
 
   clearSelection: () =>
-    set({ selectedTaskId: null, flyToLocation: null }),
+    set({ selectedTaskId: null, flyToLocationCoordinate: null }),
 }));
