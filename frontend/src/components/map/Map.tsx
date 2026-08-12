@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Map, { Source, Layer, Popup, type LayerProps } from 'react-map-gl/maplibre';
+import React, { useEffect, useRef, useState } from 'react';
+import Map, { Source, Layer, Popup, type LayerProps, type MapRef } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useTasks } from '../../hooks/useTasks';
 import { satelliteStyle, mapContainerStyle } from '../../styles.css';
@@ -9,46 +9,61 @@ import { TaskPopup } from '../taskPopup';
 import { CreateTaskPopup } from '../createTaskPopup';
 import { addButtonVariants, mapWrapper, newTaskButtonContainer } from './map.styles.css';
 import { NEW_TASK_BUTTON_TEXTS } from './strings';
+import { useTaskStore } from '../../store/useTaskStore';
 
 const CENTER_ISRAEL_LNG = 34.7818;
 const CENTER_ISRAEL_LAT = 32.0853;
 
 export default function TasksMap() {
+  const mapRef = useRef<MapRef>(null);
   const { data: tasksGeoJson, isLoading, isError } = useTasks();
 
-  const [selectedTask, setSelectedTask] = useState<SelectedTaskInfo | null>(null);
+  const selectedTaskId = useTaskStore((state) => state.selectedTaskId);
+  const flyToLocation = useTaskStore((state) => state.flyToLocation);
+  const setSelectedTaskId = useTaskStore((state) => state.setSelectedTaskId);
+  const clearSelection = useTaskStore((state) => state.clearSelection);
+
   const [newTaskLocation, setNewTaskLocation] = useState<{ lng: number; lat: number } | null>(null);
   const [isAddingTask, setIsAddingTask] = useState(false);
+
+  useEffect(() => {
+    if (flyToLocation && mapRef.current) {
+      mapRef.current.flyTo({
+        center: flyToLocation,
+        zoom: 15,
+        duration: 1500,
+      });
+    }
+  }, [flyToLocation]);
+
+  const selectedTaskFeature = tasksGeoJson?.features?.find(
+    (feature: any) => feature.properties.id === selectedTaskId
+  );
 
   const handleMapClick = (e: any) => {
     const clickedFeature = e.features && e.features[0];
 
     if (clickedFeature && clickedFeature.layer.id === 'tasks-circles') {
-      const coordinates = clickedFeature.geometry.coordinates;
-      const { title, description, status } = clickedFeature.properties || {};
+      const taskId = clickedFeature.properties.id;
 
-      setSelectedTask({
-        longitude: coordinates[0],
-        latitude: coordinates[1],
-        title,
-        description,
-        status,
-      });
+     setSelectedTaskId(taskId);
       setNewTaskLocation(null);
       setIsAddingTask(false);
       return;
     }
+
     if (isAddingTask) {
-      setSelectedTask(null);
-      setNewTaskLocation({
+    clearSelection();     
+    setNewTaskLocation({
       lng: e.lngLat.lng,
       lat: e.lngLat.lat,
     });
     setIsAddingTask(false);
       return;
   }
-    setSelectedTask(null);
-    setNewTaskLocation(null);
+
+  clearSelection();
+  setNewTaskLocation(null);
   };
 
   return (
@@ -69,6 +84,7 @@ export default function TasksMap() {
         </button>
       </div>
       <Map
+        ref={mapRef}
         initialViewState={{
           longitude: CENTER_ISRAEL_LNG,
           latitude: CENTER_ISRAEL_LAT,
@@ -85,10 +101,16 @@ export default function TasksMap() {
           </Source>
         )}
 
-        {selectedTask && (
+        {selectedTaskFeature && (
          <TaskPopup
-            task={selectedTask}
-            onClose={() => setSelectedTask(null)}
+            task={{
+              longitude: selectedTaskFeature.geometry.coordinates[0],
+              latitude: selectedTaskFeature.geometry.coordinates[1],
+              title: selectedTaskFeature.properties.title,
+              description: selectedTaskFeature.properties.description,
+              status: selectedTaskFeature.properties.status,
+            }}
+            onClose={() => clearSelection()}
           />
           )}
 

@@ -2,6 +2,6 @@ export interface SelectedTaskInfo {
   longitude: number;
   latitude: number;
   title?: string;
-  description?: string;
+  description?: string | null;
   status?: string;
 }
