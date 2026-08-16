@@ -17,7 +17,7 @@ export const TasksNavbar = () => {
           <h3 className={styles.navbarTitle}> {TASKS_NAVBAR.TASKS_TITLE} </h3>
         </div>
         <div className={styles.taskList}>
-          <p className={styles.loadingMessage}>
+          <p data-testid="loading-message" className={styles.loadingMessage}>
             {TASKS_NAVBAR.LOADING}
           </p>
         </div>
@@ -32,7 +32,7 @@ export const TasksNavbar = () => {
           <h3 className={styles.navbarTitle}> {TASKS_NAVBAR.TASKS_TITLE} </h3>
         </div>
         <div className={styles.taskList}>
-          <p className={styles.errorMessage}>
+          <p data-testid="error-message" className={styles.errorMessage}>
             {TASKS_NAVBAR.ERROR}
           </p>
         </div>
