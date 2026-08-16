@@ -85,6 +85,10 @@ export default function TasksMap() {
       </div>
       <Map
         ref={mapRef}
+        reuseMaps
+        onLoad={(e) => {
+        e.target.resize();
+  }}
         initialViewState={{
           longitude: CENTER_ISRAEL_LNG,
           latitude: CENTER_ISRAEL_LAT,
