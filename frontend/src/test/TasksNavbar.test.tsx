@@ -67,10 +67,12 @@ describe('TasksNavbar Component', () => {
 
     renderWithClient(<TasksNavbar />);
 
-    expect(screen.getByText('בדיקת ציוד')).toBeInTheDocument();
+    const mockId = mockGeoJson.features[0].properties.id;
+    const taskCard = screen.getByTestId(`task-card-${mockId}`);
+    expect(taskCard).toBeInTheDocument();
 
     const user = userEvent.setup();
-    await user.click(screen.getByText('בדיקת ציוד'));
+    await user.click(taskCard);
 
     expect(useTaskStore.getState().selectedTaskId).toBe('1');
     expect(useTaskStore.getState().flyToLocationCoordinate).toEqual([34.7818, 32.0853]);

@@ -63,6 +63,7 @@ export const TasksNavbar = () => {
             return (
               <div
                 key={id}
+                data-testid={`task-card-${id}`}
                 className={
                   isSelected
                     ? styles.taskCardVariants.selected
