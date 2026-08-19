@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TasksGateway } from './tasks.gateway';
 
 export interface RawTaskResult {
   id: number;
@@ -15,7 +16,7 @@ export interface RawTaskResult {
 
 @Injectable()
 export class TasksService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly tasksGateway: TasksGateway) {}
 
   async create(dto: CreateTaskDto) {
     const { title, description, location } = dto;
@@ -31,6 +32,10 @@ export class TasksService {
       RETURNING id, title, description, status, ST_AsGeoJSON(location)::json AS location;
     `;
 
+    if (newTask) {
+      this.tasksGateway.notifyTaskCreated(newTask);
+    }
+    
     return newTask;
   }
 
